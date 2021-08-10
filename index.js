@@ -5,6 +5,10 @@ const bodyParser = require('body-parser');
 
 const app = express();
 
+const corsOptions = {
+    origin: 'https://Ramashka-Luba.github.io/portfolio-react/',
+    optionsSuccessStatus: 200
+}
 
 app.use(cors());
 app.use(bodyParser.urlencoded({extended: false}));
@@ -30,13 +34,13 @@ app.get('/', function (req, res) {
     res.send('Hello man!');
 });
 
-app.post('/sendMessage', async function (req, res) {
+app.post('/sendMessage', cors(corsOptions), async function (req, res) {
 
-    let {name, contacts, message} = req.body;
+    let {name, email, phone, message} = req.body;
     // send mail with defined transport object
     let info = await transporter.sendMail({
-        from: 'My profile page', // sender address
-        to: "shamashov007@gmail.com", // list of receivers
+        from: email, // sender address
+        to: "lromashko911@gmail.com", // list of receivers
         subject: "HR wants me)", // Subject line
        // text: "Hello, learning nodejs", // plain text body
         html: `<b>Message from portfolio page</b>
@@ -44,12 +48,16 @@ app.post('/sendMessage', async function (req, res) {
 ${name}
 </div>
 <div>
-${contacts}
+${email}
+</div>
+<div>
+${phone}
 </div>
 <div>
 ${message}
 </div>`, // html body
     });
+    res.send("ok")
 });
 
 let port = process.env.PORT || 3010
