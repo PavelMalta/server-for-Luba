@@ -1,16 +1,17 @@
 const express = require('express');
 const nodemailer = require('nodemailer');
-const cors = require('cors')
+const cors = require('cors');
 const bodyParser = require('body-parser');
 
 const app = express();
 
 const corsOptions = {
     origin: 'https://Ramashka-Luba.github.io/portfolio-react/',
+    credentials:true,
     optionsSuccessStatus: 200
 }
 
-app.use(cors());
+app.use(cors(corsOptions));
 app.use(bodyParser.urlencoded({extended: false}));
 app.use(bodyParser.json());
 
@@ -34,7 +35,7 @@ app.get('/', function (req, res) {
     res.send('Hello man!');
 });
 
-app.post('/sendMessage', cors(corsOptions), async function (req, res) {
+app.post('/sendMessage', async function (req, res) {
 
     let {name, email, phone, message} = req.body;
     // send mail with defined transport object
