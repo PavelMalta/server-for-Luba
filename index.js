@@ -6,7 +6,7 @@ const bodyParser = require('body-parser');
 const app = express();
 
 const corsOptions = {
-    origin: 'https://Ramashka-Luba.github.io/portfolio-react/',
+    origin: 'https://ramashka-luba.github.io/portfolio-react/',
     credentials:true,
     optionsSuccessStatus: 200
 }
