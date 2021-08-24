@@ -11,22 +11,20 @@ const corsOptions = {
     optionsSuccessStatus: 200
 }
 
-// app.options("/*", function(req, res, next) {
-//     res.header('Access-Control-Allow-Origin', '*');
-//     res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE,OPTIONS');
-//     res.header('Access-Control-Allow-Headers', 'Origin, Accept, Content-Type, Authorization, Content-Length, X-Requested-With');
-//     res.sendStatus(200);
-// });
-
-app.all('*', function(req, res, next) {
-    res.header("Access-Control-Allow-Origin", "*");
+app.options("/*", function(req, res, next) {
+    res.header('Access-Control-Allow-Origin', '*');
     res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE,OPTIONS');
     res.header('Access-Control-Allow-Headers', 'Origin, Accept, Content-Type, Authorization, Content-Length, X-Requested-With');
     res.sendStatus(200);
+});
+
+app.all('*', function(req, res, next) {
+    res.header("Access-Control-Allow-Origin", "*");
     next();
 });
 
 app.use(cors(corsOptions));
+app.use(express.json());
 app.use(bodyParser.urlencoded({extended: false}));
 app.use(bodyParser.json());
 
